@@ -1,0 +1,69 @@
+name: Main Workflow
+on:
+    push:
+        branches:
+            - main
+            - dev
+
+env:
+  CI_REGISTRY_IMAGE: docker.pkg.github.com/kamplianitis/Michel_Website
+
+jobs:
+    code-quality:
+        strategy:
+            fail-fast: false
+            matrix:
+                python-version: [3.8.13]
+                poetry-version: [1.4.1]
+                os: [ubuntu-latest]
+        runs-on: ${{matrix.os}}
+        steps:
+            - uses: actions/checkout@v3
+            - uses: actions/setup-python@v2
+              with:
+                python-version: ${{ matrix.python-version }}
+            - name: Run Image
+              uses: abatilo/actions-poetry@v2.0.0
+              with:
+                poetry-version: ${{ matrix.poetry-version }}
+            - name: Install dependencies
+              run: poetry install
+            - name: Run black
+              run: poetry run black . --check --line-length=88
+            - name: Run isort
+              run: poetry run isort . --force-single-line-imports", "--line-length", "88", "--profile", "black
+            - name: Run flake8
+              run: poetry run flake8 --max-line-length 88 --extend-ignore=E501,E203,E503
+            - name: Run bandit
+              run: poetry run bandit .
+            - name: Run safety
+              run: poetry run safety check
+
+    testing:
+        strategy:
+            fail-fast: false
+            matrix:
+                python-version: [3.8.13]
+                poetry-version: [1.4.1]
+                os: [ubuntu-latest]
+        runs-on: ${{ matrix.os}}
+        steps:
+            - uses: actions/checkout@v3
+            - uses: actions/setup-python@v2
+              with:
+                python-version: ${{ matrix.python-version }}
+            - name: Run Image
+              uses: abatilo/actions-poetry@v2.0.0
+              with:
+                poetry-version: ${{ matrix.poetry-version }}
+            - name: Install dependencies
+              run: poetry install
+            - name: Run Unit Tests
+              run: poetry run pytest
+    main:
+        name: Main Job
+        needs: [code-quality, testing]
+        runs-on: ubuntu-latest
+        steps:
+            - name: Main task
+              uses: actions/checkout@v2
