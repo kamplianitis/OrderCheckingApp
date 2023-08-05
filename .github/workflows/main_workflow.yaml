@@ -6,7 +6,7 @@ on:
             - dev
 
 env:
-  CI_REGISTRY_IMAGE: docker.pkg.github.com/kamplianitis/Michel_Website
+  CI_REGISTRY_IMAGE: docker.pkg.github.com/kamplianitis/OrderCheckingApp
 
 jobs:
     code-quality:
