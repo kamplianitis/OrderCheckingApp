@@ -18,6 +18,8 @@ django-rest-swagger = "^2.2.0"
 djangorestframework = "^3.14.0"
 drf-yasg = "^1.21.7"
 pre-commit = "^3.3.3"
+bandit = "^1.7.5"
+safety = "^2.3.5"
 
 
 [build-system]
