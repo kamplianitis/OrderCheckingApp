@@ -1,0 +1,39 @@
+#docker versioning depends on the docker engine that used.
+# https://docs.docker.com/compose/compose-file/compose-file-v3/
+version: "3.8"
+
+
+services:
+  database:
+    image: postgres:14
+    volumes:
+      - postgresshopdata:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DATABASE: ${DB_NAME}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+
+  myshopbase:
+    build:
+      context: .
+      dockerfile: Dockerfile.base
+    environment:
+      POETRY_ENV: ${POETRY_ENV}
+
+  myshopbackend:
+    build: ./myStore
+    environment:
+      DJANGO_PORT: ${DJANGO_PORT}
+      DB_NAME: ${DB_NAME}
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_HOST: ${DB_HOST}
+      DB_PORT: ${DB_PORT}
+    ports:
+      - ${DJANGO_PORT}:${DJANGO_PORT}
+    depends_on:
+      - database
+
+
+volumes:
+  postgresshopdata:
