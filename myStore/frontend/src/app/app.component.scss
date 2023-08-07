@@ -1,0 +1,60 @@
+.mat-toolbar {
+  display: flex;
+  justify-content: space-between;
+  box-shadow: 0 2px 7px #00000040;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.logo {
+  width: 90px;
+  margin-top: 11px;
+}
+
+nav {
+  display: block;
+}
+
+.nav-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: white;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+li {
+  margin-left: 16px;
+}
+
+/* Styles for the buttons */
+a.mat-button {
+  color: white;
+  text-decoration: none;
+}
+
+/* Styles for the buttons */
+a.mat-button {
+  color: white;
+  text-decoration: none;
+}
+
+/* Styles for the active link */
+a.active {
+  font-weight: bold;
+  background-color: #D7D7D7;
+}

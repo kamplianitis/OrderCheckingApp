@@ -1,0 +1,39 @@
+<!-- <mat-toolbar color="primary">
+  <a mat-button routerLink="/">
+    <img class="logo" src="assets/logo.png" alt="Logo" />
+  </a>
+  <span class="spacer"></span>
+  <button mat-button routerLink="/" routerLinkActive="active">Home</button>
+  <button mat-button routerLink="/customers" routerLinkActive="active">Customers</button>
+  <button mat-button routerLink="/products" routerLinkActive="active">Products</button>
+  <button mat-button routerLink="/orders" routerLinkActive="active">Orders</button>
+</mat-toolbar> -->
+
+
+
+
+<nav>
+  <mat-toolbar color="primary">
+    <div class="nav-container">
+      <a mat-button routerLink="/home">
+        <img class="logo" src="assets/logo.png" alt="Logo" />
+      </a>
+      <ul>
+        <li>
+          <a mat-button routerLink="/home" routerLinkActive="active">Home</a>
+        </li>
+        <li>
+          <a mat-button routerLink="/customers" routerLinkActive="active">Customers</a>
+        </li>
+        <li>
+          <a mat-button routerLink="/products" routerLinkActive="active">Products</a>
+        </li>
+        <li>
+          <a mat-button routerLink="/orders" routerLinkActive="active">Orders</a>
+        </li>
+      </ul>
+    </div>
+  </mat-toolbar>
+</nav>
+
+<router-outlet></router-outlet>
