@@ -4,6 +4,10 @@ on:
         branches:
             - main
             - dev
+    pull_request:
+        branches:
+            - main
+            - dev
 
 env:
   CI_REGISTRY_IMAGE: docker.pkg.github.com/kamplianitis/OrderCheckingApp
@@ -60,6 +64,18 @@ jobs:
               run: poetry install
             - name: Run Unit Tests
               run: poetry run pytest
+    BaseImage:
+        strategy:
+            fail-fast: false
+            matrix:
+                python-version: [3.9.17]
+                poetry-version: [1.5.1]
+                os: [ubuntu-latest]
+        runs-on: ${{ matrix.os}}
+        steps:
+            - uses: actions/checkout@v2
+            - name: Build Base Image
+              run: docker build . --file Dockerfile.base --tag order-checking-base-image:$(date + %s)
     main:
         name: Main Job
         needs: [code-quality, testing]

@@ -30,7 +30,8 @@ class Product(models.Model):
 class Order(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
-    product = models.ForeignKey(Product, on_delete=models.DO_NOTHING)
+    product = models.JSONField(default=list)
+    totalCost = models.FloatField()
     paid = models.BooleanField()
 
     class Meta:
