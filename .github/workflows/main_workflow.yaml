@@ -75,7 +75,7 @@ jobs:
         steps:
             - uses: actions/checkout@v2
             - name: Build Base Image
-              run: docker build . --file Dockerfile.base --tag order-checking-base-image:$(date + %s)
+              run: docker build . --file Dockerfile.base -t orderchekingbaseimage:latest
     main:
         name: Main Job
         needs: [code-quality, testing]
